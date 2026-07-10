@@ -1,0 +1,39 @@
+{
+  "name": "packet-swapper",
+  "displayName": "调包专家",
+  "version": "0.1.0",
+  "description": "Chrome MV3 扩展：改请求/响应头、按 URL 生效、多 profile 切换，并支持 mock 请求返回。ModHeader 的干净替代。",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:app": "vite build",
+    "build:content-iso": "cross-env BUILD_TARGET=content CONTENT_ENTRY=content-iso vite build",
+    "build:content-main": "cross-env BUILD_TARGET=content CONTENT_ENTRY=content-main vite build",
+    "build": "npm run build:app && npm run build:content-iso && npm run build:content-main",
+    "dev": "vite build --watch",
+    "icons": "node scripts/make-icons.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "prismjs": "^1.30.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-simple-code-editor": "^0.14.1"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.287",
+    "@types/jsdom": "^28.0.3",
+    "@types/node": "^22.10.5",
+    "@types/prismjs": "^1.26.6",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "cross-env": "^7.0.3",
+    "jsdom": "^29.1.1",
+    "typescript": "^5.6.3",
+    "vite": "^6.0.7",
+    "vitest": "^2.1.8"
+  }
+}

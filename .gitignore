@@ -1,4 +1,28 @@
+# 依赖
 node_modules/
+
+# 构建产物
 dist/
-.DS_Store
+
+# 日志
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 测试 / 缓存
+coverage/
+.vite/
+
+# 环境变量
+.env
+.env.*
+!.env.example
+
+# 编辑器 / OS
+.DS_Store
+.vscode/
+.idea/
+.trae/
+*.swp
+*~
