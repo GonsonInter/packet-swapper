@@ -1,0 +1,23 @@
+.gitignore
+  s_c9da11ad978e52::t_59d12cb99ce227 1-4
+docs/superpowers/specs/2026-07-10-packet-swapper-design.md
+  s_c9da11ad978e52::t_c79b19442ae047 1-182
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "13269cc1c172bc88af898cceec81790fc560a1c7",
+  "prompts": {},
+  "sessions": {
+    "s_c9da11ad978e52": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d66a43fa-801b-48d7-aeb4-e4d5148a466b",
+        "model": "unknown"
+      },
+      "human_author": "wang.gsjt <wang.gsjt@bytedance.com>"
+    }
+  },
+  "attestation_metadata": {},
+  "remote_transcripts": {}
+}
