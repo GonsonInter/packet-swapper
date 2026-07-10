@@ -1,0 +1,109 @@
+.gitignore
+  s_f2c2f21e570272::t_ec700c19981a4e 1,3-4,6-7,9-28
+README.md
+  s_f2c2f21e570272::t_acdb172b6ef85b 1-72
+manifest.json
+  s_f2c2f21e570272::t_591a866c84e897 1-47
+package-lock.json
+  s_f2c2f21e570272::t_207dd6823b6bc1 1-3977
+package.json
+  s_f2c2f21e570272::t_1a5560863f63fe 1-39
+scripts/copy-manifest.ts
+  s_f2c2f21e570272::t_ee96b10d1dc69a 1-26
+scripts/make-icons.mjs
+  s_f2c2f21e570272::t_7a253ad6b27854 1-155
+src/background/index.ts
+  s_f2c2f21e570272::t_db616b807287d3 1-83
+src/components/GlobalStyle.tsx
+  s_f2c2f21e570272::t_32361893c918da 1-84
+src/components/HeaderTable.tsx
+  s_f2c2f21e570272::t_e0efd03f97c344 1-223
+src/components/JsonEditor.tsx
+  s_f2c2f21e570272::t_e22fa67cc0252a 1-77
+src/components/MockTable.tsx
+  s_f2c2f21e570272::t_f761d20e81bcb2 1-240
+src/components/ProfileRail.tsx
+  s_f2c2f21e570272::t_e55752e8a66308 1-120
+src/components/RulesEditor.tsx
+  s_f2c2f21e570272::t_0c0912c19c7a84 1-38
+src/components/Seg.tsx
+  s_f2c2f21e570272::t_495741476e1b2d 1-20
+src/components/Switch.tsx
+  s_f2c2f21e570272::t_0aadb9a62e58fe 1-41
+src/content/content-iso.ts
+  s_f2c2f21e570272::t_767c6dc1e06578 1-30
+src/content/content-main.ts
+  s_f2c2f21e570272::t_22ec61d14be87d 1-149
+src/content/protocol.ts
+  s_f2c2f21e570272::t_36366e858d6ac0 1-17
+src/core/collectPageMocks.ts
+  s_f2c2f21e570272::t_9db8f74cb13af4 1-20
+src/core/compileHeaderRules.ts
+  s_f2c2f21e570272::t_60b20df6ca9aa2 1-75
+src/core/compileNetworkMocks.ts
+  s_f2c2f21e570272::t_e12562015901f6 1-56
+src/core/factories.ts
+  s_f2c2f21e570272::t_52726dee754d14 1-42
+src/core/matchMockRule.ts
+  s_f2c2f21e570272::t_0236d437602ef6 1-37
+src/core/serialize.ts
+  s_f2c2f21e570272::t_d302e480e086b5 1-54
+src/core/storage.ts
+  s_f2c2f21e570272::t_79a90fdf58684f 1-77
+src/core/types.ts
+  s_f2c2f21e570272::t_10a0bbfa351f98 1-85
+src/core/useRootState.ts
+  s_f2c2f21e570272::t_644be21f6d3edf 1-44
+src/options/App.tsx
+  s_f2c2f21e570272::t_cbaa6463076bf1 1-170
+src/options/index.html
+  s_f2c2f21e570272::t_30f2cc99ad4e64 1-12
+src/options/main.tsx
+  s_f2c2f21e570272::t_0388d82044ce5e 1-9
+src/popup/App.tsx
+  s_f2c2f21e570272::t_318ac18334e460 1-149
+src/popup/index.html
+  s_f2c2f21e570272::t_9b145874030af3 1-12
+src/popup/main.tsx
+  s_f2c2f21e570272::t_4ee63faa99e5d0 1-9
+src/prism.d.ts
+  s_f2c2f21e570272::t_1310d5a84a4ec6 1-6
+tests/collectPageMocks.test.ts
+  s_f2c2f21e570272::t_174345e663ea29 1-36
+tests/compileHeaderRules.test.ts
+  s_f2c2f21e570272::t_faf21293739817 1-118
+tests/compileNetworkMocks.test.ts
+  s_f2c2f21e570272::t_4e5d896540f2a0 1-101
+tests/contentMainHooks.test.ts
+  s_f2c2f21e570272::t_5f0ac3dfe29c1e 1-110
+tests/helpers.ts
+  s_f2c2f21e570272::t_0e172bbc5ec3c1 1-39
+tests/matchMockRule.test.ts
+  s_f2c2f21e570272::t_996468fd701680 1-56
+tests/serialize.test.ts
+  s_f2c2f21e570272::t_b78b2df081b39c 1-49
+tsconfig.json
+  s_f2c2f21e570272::t_f4fcc262318480 1-22
+vite.config.ts
+  s_f2c2f21e570272::t_92254a604628a9 1-50
+vitest.config.ts
+  s_f2c2f21e570272::t_9942925e26ff2b 1-9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "f0400efc342bf4050a14a73bfdaffe5b2bdf0776",
+  "prompts": {},
+  "sessions": {
+    "s_f2c2f21e570272": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dadd03fb-b943-42aa-a443-75a7ffeebf88",
+        "model": "unknown"
+      },
+      "human_author": "wang.gsjt <wang.gsjt@bytedance.com>"
+    }
+  },
+  "attestation_metadata": {},
+  "remote_transcripts": {}
+}
