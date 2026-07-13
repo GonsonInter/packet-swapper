@@ -1,0 +1,21 @@
+.gitignore
+  s_f2c2f21e570272::t_8cb652320403ac 6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "25d27186cc0e3006a9e8c2c36e7079817a8c16d1",
+  "prompts": {},
+  "sessions": {
+    "s_f2c2f21e570272": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dadd03fb-b943-42aa-a443-75a7ffeebf88",
+        "model": "unknown"
+      },
+      "human_author": "wang.gsjt <wang.gsjt@bytedance.com>"
+    }
+  },
+  "attestation_metadata": {},
+  "remote_transcripts": {}
+}
