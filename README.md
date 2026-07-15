@@ -2,14 +2,26 @@
 
 Chrome MV3 扩展。ModHeader 的干净开源替代——**无任何数据收集**，并额外支持 **mock 请求返回**。
 
+> 详细用法见 [用户手册](docs/USER_GUIDE.md)。
+
 ## 功能
 
 - **改请求头 / 响应头**：对请求增 / 改 / 删 header（基于 `declarativeNetRequest`，网络层稳定生效）
 - **按 URL 条件生效**：每条规则可选 URL 过滤，空则全局
-- **多套 profile**：保存多组方案，可同时启用多个（规则叠加）
+- **多套方案**：保存多组配置，单击切换当前生效的方案（数据层支持叠加）
 - **Mock 请求返回**
   - **页面模式（主力）**：注入 hook 劫持页面 `fetch` / `XMLHttpRequest`，完全自定义 status / headers / body / delay
   - **网络层模式（补充）**：DNR redirect 到 `data:` URL，适合非 JS 发起的资源
+
+## 界面预览
+
+| 改 Header | `⋮` 菜单（作用/操作/URL 过滤） |
+|:---:|:---:|
+| ![Header 规则](docs/screenshots/header-rules.png) | ![Header ⋮ 菜单](docs/screenshots/header-menu.png) |
+
+| Mock + JSON 编辑器 | Mock 空状态 |
+|:---:|:---:|
+| ![Mock 与 JSON 编辑器](docs/screenshots/mock-json-editor.png) | ![Mock 空状态](docs/screenshots/mock-empty.png) |
 
 ## 安装（开发者模式）
 
