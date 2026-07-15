@@ -26,7 +26,7 @@ function contentTypeOf(rule: MockRule): string {
  */
 export function compileNetworkMocks(profiles: Profile[]): DnrRule[] {
   const rules: DnrRule[] = []
-  let nextId = NETWORK_MOCK_ID_BASE
+  let seq = 0
 
   for (const profile of profiles) {
     if (!profile.enabled) continue
@@ -44,11 +44,13 @@ export function compileNetworkMocks(profiles: Profile[]): DnrRule[] {
       }
 
       rules.push({
-        id: nextId++,
-        priority: 1,
+        id: NETWORK_MOCK_ID_BASE + seq,
+        // priority 随定义顺序递增：同 URL 冲突时后定义赢
+        priority: seq + 1,
         action: { type: 'redirect', redirect: { url: dataUrl } },
         condition,
       })
+      seq++
     }
   }
 

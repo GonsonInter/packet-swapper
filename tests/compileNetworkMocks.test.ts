@@ -85,6 +85,18 @@ describe('compileNetworkMocks', () => {
     expect(rules[1].condition.urlFilter).toBe('/api/y')
   })
 
+  it('后定义赢：priority 按定义顺序递增（后定义的更高）', () => {
+    const rules = compileNetworkMocks([
+      makeProfile({
+        mockRules: [
+          makeMockRule({ id: 'a', mode: 'network' }),
+          makeMockRule({ id: 'b', mode: 'network' }),
+        ],
+      }),
+    ])
+    expect(rules[0].priority).toBeLessThan(rules[1].priority)
+  })
+
   it('id 从 NETWORK_MOCK_ID_BASE 起递增，跳过禁用项与禁用 profile', () => {
     const rules = compileNetworkMocks([
       makeProfile({

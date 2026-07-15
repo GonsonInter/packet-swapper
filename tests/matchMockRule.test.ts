@@ -46,11 +46,11 @@ describe('matchMockRule', () => {
     expect(matchMockRule(rules, 'https://x.com/api/user', 'GET')).toBeNull()
   })
 
-  it('多条命中时返回第一条', () => {
+  it('多条命中时后定义赢（返回最后一条）', () => {
     const rules = [
       makeMockRule({ id: 'first', urlPattern: '/api' }),
       makeMockRule({ id: 'second', urlPattern: '/api/user' }),
     ]
-    expect(matchMockRule(rules, 'https://x.com/api/user', 'GET')?.id).toBe('first')
+    expect(matchMockRule(rules, 'https://x.com/api/user', 'GET')?.id).toBe('second')
   })
 })

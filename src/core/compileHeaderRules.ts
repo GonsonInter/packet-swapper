@@ -33,7 +33,7 @@ const ALL_RESOURCE_TYPES = [
  */
 export function compileHeaderRules(profiles: Profile[]): DnrRule[] {
   const rules: DnrRule[] = []
-  let nextId = HEADER_RULE_ID_BASE
+  let seq = 0
 
   for (const profile of profiles) {
     if (!profile.enabled) continue
@@ -60,14 +60,16 @@ export function compileHeaderRules(profiles: Profile[]): DnrRule[] {
       }
 
       rules.push({
-        id: nextId++,
-        priority: 1,
+        id: HEADER_RULE_ID_BASE + seq,
+        // priority 随定义顺序递增：同 header 冲突时后定义的优先级更高 → 后定义赢
+        priority: seq + 1,
         action,
         condition: {
           urlFilter: rule.urlFilter && rule.urlFilter.length > 0 ? rule.urlFilter : '*',
           resourceTypes: ALL_RESOURCE_TYPES,
         },
       })
+      seq++
     }
   }
 

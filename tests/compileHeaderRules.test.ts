@@ -78,6 +78,21 @@ describe('compileHeaderRules', () => {
     ])
   })
 
+  it('后定义赢：priority 按定义顺序递增（后定义的更高）', () => {
+    const rules = compileHeaderRules([
+      makeProfile({
+        headerRules: [
+          makeHeaderRule({ id: 'a', name: 'A' }),
+          makeHeaderRule({ id: 'b', name: 'B' }),
+          makeHeaderRule({ id: 'c', name: 'C' }),
+        ],
+      }),
+    ])
+    const ps = rules.map((r) => r.priority)
+    expect(ps[0]).toBeLessThan(ps[1])
+    expect(ps[1]).toBeLessThan(ps[2])
+  })
+
   it('跳过禁用的规则与禁用的 profile', () => {
     const rules = compileHeaderRules([
       makeProfile({
