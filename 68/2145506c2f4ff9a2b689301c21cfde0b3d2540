@@ -1,0 +1,31 @@
+src/core/compileHeaderRules.ts
+  s_f2c2f21e570272::t_b68921a5788217 36,63-65,72
+src/core/compileNetworkMocks.ts
+  s_f2c2f21e570272::t_3a7c185b32e384 29,47-49,53
+src/core/matchMockRule.ts
+  s_f2c2f21e570272::t_6b0040e8f905da 20-21,30,35,37
+tests/compileHeaderRules.test.ts
+  s_f2c2f21e570272::t_132d11acae0e54 81-95
+tests/compileNetworkMocks.test.ts
+  s_f2c2f21e570272::t_b4e39113a5a770 88-99
+tests/matchMockRule.test.ts
+  s_f2c2f21e570272::t_21baef6d5ea911 49,54
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "682145506c2f4ff9a2b689301c21cfde0b3d2540",
+  "prompts": {},
+  "sessions": {
+    "s_f2c2f21e570272": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dadd03fb-b943-42aa-a443-75a7ffeebf88",
+        "model": "unknown"
+      },
+      "human_author": "wang.gsjt <wang.gsjt@bytedance.com>"
+    }
+  },
+  "attestation_metadata": {},
+  "remote_transcripts": {}
+}
