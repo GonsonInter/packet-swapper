@@ -1,7 +1,7 @@
 {
   "name": "packet-swapper",
   "displayName": "调包专家",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Chrome MV3 扩展：改请求/响应头、按 URL 生效、多 profile 切换，并支持 mock 请求返回。ModHeader 的干净替代。",
   "private": true,
   "type": "module",

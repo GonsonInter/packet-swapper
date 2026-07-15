@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "调包专家 (packet-swapper)",
-  "version": "0.1.0",
-  "description": "改请求/响应头、按 URL 生效、多 profile 切换，并支持 mock 请求返回。ModHeader 的干净替代。",
+  "version": "1.0.0",
+  "description": "改请求/响应头、按 URL 生效、多方案切换，并支持 mock 请求返回。ModHeader 的干净替代，无任何数据收集。",
   "permissions": [
     "declarativeNetRequest",
     "declarativeNetRequestWithHostAccess",
