@@ -1,0 +1,23 @@
+README.md
+  s_f2c2f21e570272::t_6a7e84f617c8ab 5-6,11,16-25
+docs/USER_GUIDE.md
+  s_f2c2f21e570272::t_4644bd8f0ff2ce 1-138
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "4cbf7a3b7b577021f4c5e416c4accee608d4ca8e",
+  "prompts": {},
+  "sessions": {
+    "s_f2c2f21e570272": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dadd03fb-b943-42aa-a443-75a7ffeebf88",
+        "model": "unknown"
+      },
+      "human_author": "wang.gsjt <wang.gsjt@bytedance.com>"
+    }
+  },
+  "attestation_metadata": {},
+  "remote_transcripts": {}
+}
