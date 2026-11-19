@@ -1,7 +1,10 @@
 import type { HttpMethod, MockRule } from './types'
+import { normalizeUrlPattern } from './normalize-url-pattern'
 
 /** urlPattern 匹配：无 * 时子串匹配；含 * 时按顺序匹配各段（* = 任意）。空 pattern 匹配任意。 */
-function urlMatches(pattern: string, url: string): boolean {
+function urlMatches(rawPattern: string, url: string): boolean {
+  // 与网络层共用归一化：清洗误加的 = / ~ 前缀与首尾空格，两种模式匹配语义保持一致
+  const pattern = normalizeUrlPattern(rawPattern)
   if (!pattern) return true
   if (!pattern.includes('*')) return url.includes(pattern)
 

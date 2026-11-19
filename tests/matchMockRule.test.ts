@@ -53,4 +53,14 @@ describe('matchMockRule', () => {
     ]
     expect(matchMockRule(rules, 'https://x.com/api/user', 'GET')?.id).toBe('second')
   })
+
+  it('归一化：带 = 前缀和空格的 pattern 仍能按子串命中（与网络层语义一致）', () => {
+    const rules = [makeMockRule({ urlPattern: ' = /api/user ' })]
+    expect(matchMockRule(rules, 'https://x.com/api/user?id=1', 'GET')?.id).toBe('m1')
+  })
+
+  it('归一化：~ 正则前缀清洗后按子串匹配', () => {
+    const rules = [makeMockRule({ urlPattern: '~ /api/user' })]
+    expect(matchMockRule(rules, 'https://x.com/api/user', 'GET')?.id).toBe('m1')
+  })
 })

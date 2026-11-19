@@ -5,6 +5,7 @@ import {
   type MockRule,
   type Profile,
 } from './types'
+import { normalizeUrlPattern } from './normalize-url-pattern'
 
 /** UTF-8 安全的 base64 编码（btoa 只吃 latin1）。service worker 与 node 均可用。 */
 function toBase64(str: string): string {
@@ -36,8 +37,10 @@ export function compileNetworkMocks(profiles: Profile[]): DnrRule[] {
 
       const dataUrl = `data:${contentTypeOf(rule)};base64,${toBase64(rule.body)}`
 
+      // 归一化后再交给 DNR：清洗误加的 = / ~ 前缀与首尾空格，避免字面量不匹配导致规则静默失效
+      const urlFilter = normalizeUrlPattern(rule.urlPattern)
       const condition: DnrRuleCondition = {
-        urlFilter: rule.urlPattern.length > 0 ? rule.urlPattern : '*',
+        urlFilter: urlFilter.length > 0 ? urlFilter : '*',
       }
       if (rule.method !== 'ANY') {
         condition.requestMethods = [rule.method.toLowerCase()]

@@ -85,6 +85,19 @@ describe('compileNetworkMocks', () => {
     expect(rules[1].condition.urlFilter).toBe('/api/y')
   })
 
+  it('归一化：误加的 = 前缀与首尾空格不会进 urlFilter（修复规则静默失效）', () => {
+    const rules = compileNetworkMocks([
+      makeProfile({
+        mockRules: [
+          makeMockRule({ id: 'a', mode: 'network', urlPattern: ' = https://x.com/api/page_info ' }),
+          makeMockRule({ id: 'b', mode: 'network', urlPattern: '~ /api/v1' }),
+        ],
+      }),
+    ])
+    expect(rules[0].condition.urlFilter).toBe('https://x.com/api/page_info')
+    expect(rules[1].condition.urlFilter).toBe('/api/v1')
+  })
+
   it('后定义赢：priority 按定义顺序递增（后定义的更高）', () => {
     const rules = compileNetworkMocks([
       makeProfile({
