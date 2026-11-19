@@ -3,6 +3,7 @@ import {
   type DnrModifyHeaderInfo,
   type DnrRule,
   type DnrRuleAction,
+  type HeaderRule,
   type Profile,
 } from './types'
 
@@ -32,8 +33,8 @@ const ALL_RESOURCE_TYPES = [
  * - 空 header name 跳过 + warn
  */
 export function compileHeaderRules(profiles: Profile[]): DnrRule[] {
-  const rules: DnrRule[] = []
-  let seq = 0
+  // 先收集所有生效规则（跳过禁用与空 name），得到总数用于计算「上面优先」的 priority
+  const collected: { rule: HeaderRule; name: string }[] = []
 
   for (const profile of profiles) {
     if (!profile.enabled) continue
@@ -46,32 +47,33 @@ export function compileHeaderRules(profiles: Profile[]): DnrRule[] {
         console.warn(`[packet-swapper] 跳过空 header name 的规则: ${rule.id}`)
         continue
       }
-
-      const headerInfo: DnrModifyHeaderInfo =
-        rule.action === 'remove'
-          ? { header: name, operation: 'remove' }
-          : { header: name, operation: rule.action, value: rule.value }
-
-      const action: DnrRuleAction = { type: 'modifyHeaders' }
-      if (rule.target === 'request') {
-        action.requestHeaders = [headerInfo]
-      } else {
-        action.responseHeaders = [headerInfo]
-      }
-
-      rules.push({
-        id: HEADER_RULE_ID_BASE + seq,
-        // priority 随定义顺序递增：同 header 冲突时后定义的优先级更高 → 后定义赢
-        priority: seq + 1,
-        action,
-        condition: {
-          urlFilter: rule.urlFilter && rule.urlFilter.length > 0 ? rule.urlFilter : '*',
-          resourceTypes: ALL_RESOURCE_TYPES,
-        },
-      })
-      seq++
+      collected.push({ rule, name })
     }
   }
 
-  return rules
+  const total = collected.length
+  return collected.map(({ rule, name }, seq) => {
+    const headerInfo: DnrModifyHeaderInfo =
+      rule.action === 'remove'
+        ? { header: name, operation: 'remove' }
+        : { header: name, operation: rule.action, value: rule.value }
+
+    const action: DnrRuleAction = { type: 'modifyHeaders' }
+    if (rule.target === 'request') {
+      action.requestHeaders = [headerInfo]
+    } else {
+      action.responseHeaders = [headerInfo]
+    }
+
+    return {
+      id: HEADER_RULE_ID_BASE + seq,
+      // priority 与列表顺序相反且恒为正整数（DNR 要求 >0）：靠上的规则 priority 更高 → 上面优先
+      priority: total - seq,
+      action,
+      condition: {
+        urlFilter: rule.urlFilter && rule.urlFilter.length > 0 ? rule.urlFilter : '*',
+        resourceTypes: ALL_RESOURCE_TYPES,
+      },
+    }
+  })
 }

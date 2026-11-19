@@ -46,10 +46,19 @@ describe('matchMockRule', () => {
     expect(matchMockRule(rules, 'https://x.com/api/user', 'GET')).toBeNull()
   })
 
-  it('多条命中时后定义赢（返回最后一条）', () => {
+  it('多条命中时上面优先（返回第一条）', () => {
     const rules = [
       makeMockRule({ id: 'first', urlPattern: '/api' }),
       makeMockRule({ id: 'second', urlPattern: '/api/user' }),
+    ]
+    // 两条都命中 /api/user，列表靠上的 first 优先
+    expect(matchMockRule(rules, 'https://x.com/api/user', 'GET')?.id).toBe('first')
+  })
+
+  it('调序后优先级随之改变：把 second 排到上面则 second 赢', () => {
+    const rules = [
+      makeMockRule({ id: 'second', urlPattern: '/api/user' }),
+      makeMockRule({ id: 'first', urlPattern: '/api' }),
     ]
     expect(matchMockRule(rules, 'https://x.com/api/user', 'GET')?.id).toBe('second')
   })

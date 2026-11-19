@@ -1,7 +1,10 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Seg } from './Seg'
+import { DragHandle } from './DragHandle'
+import { useDragReorder } from './use-drag-reorder'
 import { newHeaderRule } from '../core/factories'
+import { reorderById } from '../core/reorder'
 import type { HeaderAction, HeaderRule, HeaderTarget, Profile } from '../core/types'
 
 const TARGETS: [HeaderTarget, string][] = [
@@ -27,6 +30,9 @@ export function HeaderTable({
     setRules(rules.map((r) => (r.id === id ? { ...r, ...p } : r)))
   const remove = (id: string) => setRules(rules.filter((r) => r.id !== id))
   const add = () => setRules([...rules, newHeaderRule()])
+  const { dragId, overId, getHandleProps, getRowProps } = useDragReorder((fromId, toId) =>
+    setRules(reorderById(rules, fromId, toId)),
+  )
 
   if (rules.length === 0) {
     return (
@@ -70,6 +76,7 @@ export function HeaderTable({
           color: '#9ca3af',
         }}
       >
+        <span style={{ width: 20, textAlign: 'center' }}></span>
         <span style={{ width: 32, textAlign: 'center' }}>启用</span>
         <span style={{ flex: 1 }}>Header 名</span>
         <span style={{ flex: 1 }}>值</span>
@@ -78,12 +85,26 @@ export function HeaderTable({
 
       {rules.map((r) => {
         const isRemove = r.action === 'remove'
+        const isDragging = dragId === r.id
+        const isDragOver = overId === r.id
         return (
           <div
             key={r.id}
             className="ps-row"
-            style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '7px 6px' }}
+            {...getRowProps(r.id)}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '7px 6px',
+              borderRadius: 8,
+              opacity: isDragging ? 0.4 : 1,
+              outline: isDragOver ? '2px dashed #3b82f6' : 'none',
+              outlineOffset: -2,
+              background: isDragOver ? '#eff6ff' : undefined,
+            }}
           >
+            <DragHandle {...getHandleProps(r.id)} />
             <span style={{ width: 32, textAlign: 'center' }}>
               <input
                 type="checkbox"

@@ -78,7 +78,7 @@ describe('compileHeaderRules', () => {
     ])
   })
 
-  it('后定义赢：priority 按定义顺序递增（后定义的更高）', () => {
+  it('上面优先：priority 与列表顺序相反（靠上的更高）', () => {
     const rules = compileHeaderRules([
       makeProfile({
         headerRules: [
@@ -89,8 +89,11 @@ describe('compileHeaderRules', () => {
       }),
     ])
     const ps = rules.map((r) => r.priority)
-    expect(ps[0]).toBeLessThan(ps[1])
-    expect(ps[1]).toBeLessThan(ps[2])
+    expect(ps[0]).toBeGreaterThan(ps[1])
+    expect(ps[1]).toBeGreaterThan(ps[2])
+    // 三条规则：首条 priority = total = 3（恒为正、靠上最高）
+    expect(ps[0]).toBe(3)
+    expect(ps[2]).toBe(1)
   })
 
   it('跳过禁用的规则与禁用的 profile', () => {

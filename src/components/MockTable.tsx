@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import { JsonEditor } from './JsonEditor'
 import { Seg } from './Seg'
+import { DragHandle } from './DragHandle'
+import { useDragReorder } from './use-drag-reorder'
 import { isNetworkBodyTooLarge, newMockRule } from '../core/factories'
+import { reorderById } from '../core/reorder'
 import type { HttpMethod, MockHeader, MockMode, MockRule, Profile } from '../core/types'
 
 const METHODS: HttpMethod[] = ['ANY', 'GET', 'POST', 'PUT', 'DELETE', 'PATCH']
@@ -37,6 +40,9 @@ export function MockTable({
       else n.add(id)
       return n
     })
+  const { dragId, overId, getHandleProps, getRowProps } = useDragReorder((fromId, toId) =>
+    setRules(reorderById(rules, fromId, toId)),
+  )
 
   if (rules.length === 0) {
     return (
@@ -72,16 +78,21 @@ export function MockTable({
         return (
           <div
             key={r.id}
+            {...getRowProps(r.id)}
             style={{
               border: `1px solid ${tooLarge ? '#fdba74' : '#eef0f2'}`,
               borderRadius: 10,
               marginBottom: 8,
               padding: '8px 10px',
               background: tooLarge ? '#fffbeb' : '#fff',
+              opacity: dragId === r.id ? 0.4 : 1,
+              outline: overId === r.id ? '2px dashed #3b82f6' : 'none',
+              outlineOffset: -2,
             }}
           >
             {/* 概要行 */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <DragHandle {...getHandleProps(r.id)} />
               <input
                 type="checkbox"
                 checked={r.enabled}

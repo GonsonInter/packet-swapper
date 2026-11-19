@@ -21,7 +21,8 @@ function urlMatches(rawPattern: string, url: string): boolean {
 
 /**
  * page 模式 mock 匹配：在规则列表里找命中 url + method 的启用 page 规则。
- * 多条命中时「后定义赢」——返回最后一条匹配的规则。未命中返回 null。
+ * 多规则按「上面优先」——列表越靠前优先级越高，返回第一条命中的规则。未命中返回 null。
+ * 拖拽排序调整数组顺序即可改变优先级，与网络层 DNR priority 语义一致。
  */
 export function matchMockRule(
   rules: MockRule[],
@@ -30,12 +31,11 @@ export function matchMockRule(
 ): MockRule | null {
   const upper = method.toUpperCase() as HttpMethod
 
-  let hit: MockRule | null = null
   for (const rule of rules) {
     if (!rule.enabled || rule.mode !== 'page') continue
     if (rule.method !== 'ANY' && rule.method !== upper) continue
     if (!urlMatches(rule.urlPattern, url)) continue
-    hit = rule // 保留最后一条命中的
+    return rule // 第一条命中即返回：上面的规则优先
   }
-  return hit
+  return null
 }
