@@ -14,7 +14,14 @@ const MODES: [MockMode, string][] = [
   ['page', '页面'],
 ]
 
-const labelStyle = { fontSize: 11, color: '#6b7280', fontWeight: 600 as const, marginBottom: 5 }
+const labelStyle = {
+  fontSize: 11,
+  color: '#6b7280',
+  fontWeight: 600,
+  marginBottom: 6,
+  lineHeight: '16px',
+  height: 16,
+} as const
 
 export function MockTable({
   profile,
@@ -147,13 +154,13 @@ export function MockTable({
             {open && (
               <div
                 style={{
-                  marginTop: 12,
+                  marginTop: 14,
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: 14,
+                  gap: 16,
                 }}
               >
-                <div style={{ display: 'flex', gap: 20, alignItems: 'flex-end' }}>
+                <div style={{ display: 'flex', gap: 24, alignItems: 'flex-end' }}>
                   <div>
                     <div style={labelStyle}>模式</div>
                     <Seg value={r.mode} options={MODES} onChange={(v) => patch(r.id, { mode: v })} />
@@ -163,7 +170,7 @@ export function MockTable({
                     <input
                       className="ps-input"
                       type="number"
-                      style={{ width: 84 }}
+                      style={{ width: 96 }}
                       value={r.statusCode}
                       onChange={(e) => patch(r.id, { statusCode: Number(e.target.value) || 200 })}
                     />
@@ -182,8 +189,18 @@ export function MockTable({
                   <JsonEditor value={r.body} onChange={(body) => patch(r.id, { body })} />
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <span style={labelStyle}>延迟 (ms)</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <span
+                    style={{
+                      fontSize: 11,
+                      color: '#6b7280',
+                      fontWeight: 600,
+                      lineHeight: '30px',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    延迟 (ms)
+                  </span>
                   <input
                     className="ps-input"
                     type="number"
@@ -198,7 +215,7 @@ export function MockTable({
                     onChange={(e) => patch(r.id, { delayMs: Number(e.target.value) || 0 })}
                   />
                   {r.mode !== 'page' && (
-                    <span style={{ fontSize: 11, color: '#9ca3af' }}>
+                    <span style={{ fontSize: 12, color: '#9ca3af', lineHeight: '18px' }}>
                       网络层（DNR 重定向）不支持延迟，需要延迟请切到「页面」模式
                     </span>
                   )}

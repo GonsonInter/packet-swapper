@@ -5,13 +5,14 @@ const CSS = `
 .ps-scope input[type="checkbox"] { cursor: pointer; }
 
 .ps-input {
-  border: 1px solid #e5e7eb; border-radius: 6px; padding: 5px 8px;
+  border: 1px solid #e5e7eb; border-radius: 6px; padding: 0 10px;
+  height: 30px; line-height: 30px;
   font-size: 13px; font-family: inherit; background: #fff; width: 100%;
   outline: none; transition: border-color .12s, box-shadow .12s;
 }
 .ps-input:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,.12); }
 .ps-input:disabled { background: #f9fafb; color: #9ca3af; }
-textarea.ps-input { resize: vertical; line-height: 1.5; }
+textarea.ps-input { height: auto; line-height: 1.5; padding: 8px 10px; resize: vertical; }
 
 .ps-btn {
   border: 1px solid #d1d5db; background: #fff; border-radius: 7px;
@@ -61,11 +62,11 @@ textarea.ps-input { resize: vertical; line-height: 1.5; }
 .ps-menu-label { font-size: 11px; color: #6b7280; margin: 12px 0 5px; font-weight: 600; }
 .ps-menu-label:first-child { margin-top: 0; }
 
-.ps-seg { display: flex; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; }
+.ps-seg { display: inline-flex; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; height: 30px; }
 .ps-seg button {
-  flex: 1; border: none; background: #fff; padding: 6px 16px; font-size: 12px;
+  flex: 1; border: none; background: #fff; padding: 0 16px; font-size: 12px;
   cursor: pointer; color: #374151; border-left: 1px solid #e5e7eb; transition: background .1s;
-  white-space: nowrap; line-height: 1.6;
+  white-space: nowrap; display: inline-flex; align-items: center; justify-content: center;
 }
 .ps-seg button:first-child { border-left: none; }
 .ps-seg button:hover { background: #f9fafb; }
