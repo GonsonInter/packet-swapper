@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { JsonEditor } from './JsonEditor'
 import { Seg } from './Seg'
 import { DragHandle } from './DragHandle'
+import { DropIndicator } from './DropIndicator'
 import { useDragReorder } from './use-drag-reorder'
 import { isNetworkBodyTooLarge, newMockRule } from '../core/factories'
 import { reorderById } from '../core/reorder'
@@ -76,27 +77,21 @@ export function MockTable({
         const open = expanded.has(r.id)
         const tooLarge = isNetworkBodyTooLarge(r)
         const isDragOver = overId === r.id
-        // 插入指示线：落在目标卡片的顶边（before）或底边（after）
-        const indicator =
-          isDragOver && overPos === 'before'
-            ? 'inset 3px 0 -3px 0 #2563eb'
-            : isDragOver && overPos === 'after'
-              ? 'inset -3px 0 3px 0 #2563eb'
-              : undefined
         return (
           <div
             key={r.id}
             data-drag-row=""
             {...getRowProps(r.id)}
             style={{
+              position: 'relative',
               border: `1px solid ${tooLarge ? '#fdba74' : '#eef0f2'}`,
               borderRadius: 10,
               marginBottom: 8,
               padding: '8px 10px',
               background: tooLarge ? '#fffbeb' : dragId === r.id ? '#f3f4f6' : '#fff',
-              boxShadow: indicator,
             }}
           >
+            {isDragOver && <DropIndicator position={overPos} />}
             {/* 概要行 */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <DragHandle {...getHandleProps(r.id)} />

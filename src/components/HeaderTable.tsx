@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Seg } from './Seg'
 import { DragHandle } from './DragHandle'
+import { DropIndicator } from './DropIndicator'
 import { useDragReorder } from './use-drag-reorder'
 import { newHeaderRule } from '../core/factories'
 import { reorderById } from '../core/reorder'
@@ -87,13 +88,6 @@ export function HeaderTable({
         const isRemove = r.action === 'remove'
         const isDragging = dragId === r.id
         const isDragOver = overId === r.id
-        // 插入指示线：落在目标行的顶边（before）或底边（after）
-        const indicator =
-          isDragOver && overPos === 'before'
-            ? 'inset 3px 0 -3px 0 #2563eb'
-            : isDragOver && overPos === 'after'
-              ? 'inset -3px 0 3px 0 #2563eb'
-              : undefined
         return (
           <div
             key={r.id}
@@ -101,15 +95,16 @@ export function HeaderTable({
             data-drag-row=""
             {...getRowProps(r.id)}
             style={{
+              position: 'relative',
               display: 'flex',
               alignItems: 'center',
               gap: 10,
               padding: '7px 6px',
               borderRadius: 8,
               background: isDragging ? '#f3f4f6' : undefined,
-              boxShadow: indicator,
             }}
           >
+            {isDragOver && <DropIndicator position={overPos} />}
             <DragHandle {...getHandleProps(r.id)} />
             <span style={{ width: 32, textAlign: 'center' }}>
               <input
