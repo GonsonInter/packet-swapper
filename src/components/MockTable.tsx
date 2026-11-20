@@ -40,7 +40,7 @@ export function MockTable({
       else n.add(id)
       return n
     })
-  const { dragId, overId, getHandleProps, getRowProps } = useDragReorder((fromId, toId) =>
+  const { dragId, overId, overPos, getHandleProps, getRowProps } = useDragReorder((fromId, toId) =>
     setRules(reorderById(rules, fromId, toId)),
   )
 
@@ -75,6 +75,14 @@ export function MockTable({
       {rules.map((r) => {
         const open = expanded.has(r.id)
         const tooLarge = isNetworkBodyTooLarge(r)
+        const isDragOver = overId === r.id
+        // 插入指示线：落在目标卡片的顶边（before）或底边（after）
+        const indicator =
+          isDragOver && overPos === 'before'
+            ? 'inset 3px 0 -3px 0 #2563eb'
+            : isDragOver && overPos === 'after'
+              ? 'inset -3px 0 3px 0 #2563eb'
+              : undefined
         return (
           <div
             key={r.id}
@@ -85,11 +93,8 @@ export function MockTable({
               borderRadius: 10,
               marginBottom: 8,
               padding: '8px 10px',
-              background:
-                overId === r.id ? '#dbeafe' : tooLarge ? '#fffbeb' : dragId === r.id ? '#f3f4f6' : '#fff',
-              outline: overId === r.id ? '3px dashed #2563eb' : 'none',
-              outlineOffset: -1,
-              boxShadow: overId === r.id ? '0 0 0 4px rgba(37, 99, 235, 0.15)' : undefined,
+              background: tooLarge ? '#fffbeb' : dragId === r.id ? '#f3f4f6' : '#fff',
+              boxShadow: indicator,
             }}
           >
             {/* 概要行 */}

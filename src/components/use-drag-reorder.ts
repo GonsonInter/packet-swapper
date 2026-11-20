@@ -10,10 +10,13 @@ import { useState, type DragEvent } from 'react'
 export function useDragReorder(onReorder: (fromId: string, toId: string) => void) {
   const [dragId, setDragId] = useState<string | null>(null)
   const [overId, setOverId] = useState<string | null>(null)
+  /** 插入位置：before=插在目标行上方，after=插在下方（指示线据此画在目标行顶/底边） */
+  const [overPos, setOverPos] = useState<'before' | 'after'>('before')
 
   const reset = () => {
     setDragId(null)
     setOverId(null)
+    setOverPos('before')
   }
 
   const getHandleProps = (id: string) => ({
@@ -46,7 +49,12 @@ export function useDragReorder(onReorder: (fromId: string, toId: string) => void
       // 必须 preventDefault 否则 drop 不触发
       e.preventDefault()
       e.dataTransfer.dropEffect = 'move'
-      if (dragId && dragId !== id) setOverId(id)
+      if (!dragId || dragId === id) return
+      // 按鼠标在目标行的上/下半区，决定插到该行之前还是之后
+      const rect = (e.currentTarget as HTMLElement).getBoundingClientRect()
+      const pos = e.clientY < rect.top + rect.height / 2 ? 'before' : 'after'
+      setOverId(id)
+      setOverPos(pos)
     },
     onDrop: (e: DragEvent) => {
       e.preventDefault()
@@ -55,5 +63,5 @@ export function useDragReorder(onReorder: (fromId: string, toId: string) => void
     },
   })
 
-  return { dragId, overId, getHandleProps, getRowProps }
+  return { dragId, overId, overPos, getHandleProps, getRowProps }
 }

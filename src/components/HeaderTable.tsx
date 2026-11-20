@@ -30,7 +30,7 @@ export function HeaderTable({
     setRules(rules.map((r) => (r.id === id ? { ...r, ...p } : r)))
   const remove = (id: string) => setRules(rules.filter((r) => r.id !== id))
   const add = () => setRules([...rules, newHeaderRule()])
-  const { dragId, overId, getHandleProps, getRowProps } = useDragReorder((fromId, toId) =>
+  const { dragId, overId, overPos, getHandleProps, getRowProps } = useDragReorder((fromId, toId) =>
     setRules(reorderById(rules, fromId, toId)),
   )
 
@@ -87,6 +87,13 @@ export function HeaderTable({
         const isRemove = r.action === 'remove'
         const isDragging = dragId === r.id
         const isDragOver = overId === r.id
+        // 插入指示线：落在目标行的顶边（before）或底边（after）
+        const indicator =
+          isDragOver && overPos === 'before'
+            ? 'inset 3px 0 -3px 0 #2563eb'
+            : isDragOver && overPos === 'after'
+              ? 'inset -3px 0 3px 0 #2563eb'
+              : undefined
         return (
           <div
             key={r.id}
@@ -99,10 +106,8 @@ export function HeaderTable({
               gap: 10,
               padding: '7px 6px',
               borderRadius: 8,
-              background: isDragOver ? '#dbeafe' : isDragging ? '#f3f4f6' : undefined,
-              outline: isDragOver ? '3px dashed #2563eb' : 'none',
-              outlineOffset: -1,
-              boxShadow: isDragOver ? '0 0 0 4px rgba(37, 99, 235, 0.15)' : undefined,
+              background: isDragging ? '#f3f4f6' : undefined,
+              boxShadow: indicator,
             }}
           >
             <DragHandle {...getHandleProps(r.id)} />
