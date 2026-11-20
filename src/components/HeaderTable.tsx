@@ -91,6 +91,7 @@ export function HeaderTable({
           <div
             key={r.id}
             className="ps-row"
+            data-drag-row=""
             {...getRowProps(r.id)}
             style={{
               display: 'flex',
@@ -98,10 +99,10 @@ export function HeaderTable({
               gap: 10,
               padding: '7px 6px',
               borderRadius: 8,
-              opacity: isDragging ? 0.4 : 1,
-              outline: isDragOver ? '2px dashed #3b82f6' : 'none',
-              outlineOffset: -2,
-              background: isDragOver ? '#eff6ff' : undefined,
+              background: isDragOver ? '#dbeafe' : isDragging ? '#f3f4f6' : undefined,
+              outline: isDragOver ? '3px dashed #2563eb' : 'none',
+              outlineOffset: -1,
+              boxShadow: isDragOver ? '0 0 0 4px rgba(37, 99, 235, 0.15)' : undefined,
             }}
           >
             <DragHandle {...getHandleProps(r.id)} />

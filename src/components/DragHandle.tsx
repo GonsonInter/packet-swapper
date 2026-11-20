@@ -5,6 +5,8 @@ import type { HTMLAttributes } from 'react'
  * 事件由 useDragReorder 的 getHandleProps 注入。
  */
 export function DragHandle(props: HTMLAttributes<HTMLSpanElement>) {
+  const dragging = (props as Record<string, unknown>)['data-dragging']
+  const { style, ...rest } = props
   return (
     <span
       aria-label="拖拽排序"
@@ -21,9 +23,12 @@ export function DragHandle(props: HTMLAttributes<HTMLSpanElement>) {
         color: '#9ca3af',
         borderRadius: 6,
         userSelect: 'none',
+        // 拖拽中隐藏源手柄，避免与整行 dragImage 重叠出现双影
+        opacity: dragging === 'true' ? 0 : 1,
+        ...style,
       }}
       onMouseDown={(e) => e.stopPropagation()}
-      {...props}
+      {...rest}
     >
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
         <circle cx="9" cy="6" r="1.6" />

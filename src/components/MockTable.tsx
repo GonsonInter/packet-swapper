@@ -9,8 +9,8 @@ import type { HttpMethod, MockHeader, MockMode, MockRule, Profile } from '../cor
 
 const METHODS: HttpMethod[] = ['ANY', 'GET', 'POST', 'PUT', 'DELETE', 'PATCH']
 const MODES: [MockMode, string][] = [
-  ['page', '页面'],
   ['network', '网络层'],
+  ['page', '页面'],
 ]
 
 const labelStyle = { fontSize: 11, color: '#6b7280', fontWeight: 600 as const, marginBottom: 5 }
@@ -78,16 +78,18 @@ export function MockTable({
         return (
           <div
             key={r.id}
+            data-drag-row=""
             {...getRowProps(r.id)}
             style={{
               border: `1px solid ${tooLarge ? '#fdba74' : '#eef0f2'}`,
               borderRadius: 10,
               marginBottom: 8,
               padding: '8px 10px',
-              background: tooLarge ? '#fffbeb' : '#fff',
-              opacity: dragId === r.id ? 0.4 : 1,
-              outline: overId === r.id ? '2px dashed #3b82f6' : 'none',
-              outlineOffset: -2,
+              background:
+                overId === r.id ? '#dbeafe' : tooLarge ? '#fffbeb' : dragId === r.id ? '#f3f4f6' : '#fff',
+              outline: overId === r.id ? '3px dashed #2563eb' : 'none',
+              outlineOffset: -1,
+              boxShadow: overId === r.id ? '0 0 0 4px rgba(37, 99, 235, 0.15)' : undefined,
             }}
           >
             {/* 概要行 */}
@@ -188,10 +190,17 @@ export function MockTable({
                     style={{ width: 100 }}
                     value={r.delayMs}
                     disabled={r.mode !== 'page'}
+                    title={
+                      r.mode !== 'page'
+                        ? '网络层走浏览器 DNR 重定向，扩展 API 无法控制响应时序；需要延迟请改用「页面」模式'
+                        : undefined
+                    }
                     onChange={(e) => patch(r.id, { delayMs: Number(e.target.value) || 0 })}
                   />
                   {r.mode !== 'page' && (
-                    <span style={{ fontSize: 11, color: '#9ca3af' }}>仅页面模式生效</span>
+                    <span style={{ fontSize: 11, color: '#9ca3af' }}>
+                      网络层（DNR 重定向）不支持延迟，需要延迟请切到「页面」模式
+                    </span>
                   )}
                 </div>
               </div>

@@ -19,6 +19,8 @@ export function useDragReorder(onReorder: (fromId: string, toId: string) => void
   const getHandleProps = (id: string) => ({
     draggable: true,
     title: '拖拽调整优先级（越靠上优先级越高）',
+    // 拖拽中隐藏源手柄：整行已作为 dragImage 跟随鼠标，避免原位残留默认 ghost 虚影
+    'data-dragging': dragId === id ? 'true' : undefined,
     onDragStart: (e: DragEvent) => {
       setDragId(id)
       e.dataTransfer.effectAllowed = 'move'
@@ -27,6 +29,13 @@ export function useDragReorder(onReorder: (fromId: string, toId: string) => void
         e.dataTransfer.setData('text/plain', id)
       } catch {
         /* 忽略：部分环境不允许写 dataTransfer */
+      }
+      // 默认拖拽影像是手柄（小六点），这里改取所在整行，让拖起来的是「那一条规则」
+      const row = (e.currentTarget as HTMLElement).closest('[data-drag-row]') as HTMLElement | null
+      if (row) {
+        // 相对行内偏移，避免影像跳到鼠标左上角
+        const rect = row.getBoundingClientRect()
+        e.dataTransfer.setDragImage(row, e.clientX - rect.left, e.clientY - rect.top)
       }
     },
     onDragEnd: reset,

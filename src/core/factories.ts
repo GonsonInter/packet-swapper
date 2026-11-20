@@ -26,7 +26,8 @@ export function newMockRule(): MockRule {
     enabled: true,
     urlPattern: '',
     method: 'ANY',
-    mode: 'page',
+    // 默认网络层：基于 DNR 重定向，无需 content script 注入、覆盖更彻底
+    mode: 'network',
     statusCode: 200,
     headers: [],
     body: '',
